@@ -99,6 +99,19 @@ class HTBAPI(object):
         
     def login(self):
         s=requests.Session()
+        s.headers = {
+            "Cache-Control": "max-age=0",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "en-US,en;q=0.9",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",  # user-agent of  your choice
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Referer": "https://www.hackthebox.eu/login",
+            "Origin": "https://www.hackthebox.eu",
+            "Upgrade-Insecure-Requests": "1",
+            "Connection": "keep-alive",
+            "Host": "www.hackthebox.eu"
+        }
         r=s.get("https://www.hackthebox.eu/login") #get csrf-token
         csrftoken=r.content.split('"csrf-token" content="')[1].split('"')[0]
         data={'_token':csrftoken,'email':self.email,'password':self.password}
